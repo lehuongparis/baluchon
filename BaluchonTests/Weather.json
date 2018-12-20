@@ -1,0 +1,19 @@
+{
+    "query": {
+        "count": 1,
+        "created": "2018-12-19T14:36:49Z",
+        "lang": "en-US",
+        "results": {
+            "channel": {
+                "item": {
+                    "condition": {
+                        "code": "26",
+                        "date": "Wed, 19 Dec 2018 03:00 PM CET",
+                        "temp": "10",
+                        "text": "Cloudy"
+                    }
+                }
+            }
+        }
+    }
+}

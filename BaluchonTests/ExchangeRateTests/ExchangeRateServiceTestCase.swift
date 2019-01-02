@@ -12,7 +12,6 @@ import XCTest
 class ExchangeRateServiceTestCase: XCTestCase {
     
     // MARK : - Test getCurrency
-    
     func testGetCurrencyShouldPostFailedCallbackIfError() {
         // Given
         let exchangeRateService = ExchangeRateService(
@@ -29,7 +28,6 @@ class ExchangeRateServiceTestCase: XCTestCase {
             XCTAssertNil(symbols)
             expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
@@ -278,7 +276,6 @@ class ExchangeRateServiceTestCase: XCTestCase {
     }
     
     // MARK : - Test getRate
-    
     func testGetRateShouldPostFailedCallbackIfError() {
         // Given
         let exchangeRateService = ExchangeRateService(rateSession: URLSessionFake(data: nil, response: nil, error: FakeResponseData.error))

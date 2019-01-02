@@ -109,8 +109,4 @@ class WeatherServiceTestCase: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
-        
-        
-    
-    
 }

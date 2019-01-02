@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK : - Struct JSON
 struct Currency: Decodable {
     let symbols: [String: String]
 }
@@ -18,6 +19,7 @@ struct Rates: Decodable {
 
 class ExchangeRateService {
 
+    // MARK : - Url
     private static let currencyUrl = URL(string: "http://data.fixer.io/api/symbols?access_key=a232dffeb7aac4d2143830620eb8b4c7")!
     private static let rateUrl = URL(string: "http://data.fixer.io/api/latest?access_key=a232dffeb7aac4d2143830620eb8b4c7")!
     
@@ -30,6 +32,7 @@ class ExchangeRateService {
         self.rateSession = rateSession
     }
     
+    // MARK : - Functions request
     func getCurrency(callback : @escaping (Bool, [String]?)-> Void) {
 
         task?.cancel()

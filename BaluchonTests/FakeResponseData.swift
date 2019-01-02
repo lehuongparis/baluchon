@@ -46,7 +46,6 @@ class FakeResponseData {
     // MARK: - Error
     class ServiceError: Error {}
     static let error = ServiceError()
-
 }
 
 

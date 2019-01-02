@@ -10,36 +10,44 @@ import UIKit
 
 class TranslateViewController: UIViewController {
 
+    // MARK : - Oulets
     @IBOutlet weak var textFrTextField: UITextField!
     @IBOutlet weak var textEnLabel: UILabel!
     @IBOutlet weak var translateButton: UIButton!
+    
+    // MARK : - Let
     private let translateService = TranslateService()
     
+    // MARK : - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        textEnLabel.layer.cornerRadius =  6.0
-        textEnLabel.layer.backgroundColor = UIColor.white.cgColor
+        self.presentView()
     }
     
-    @IBAction func getTextEnButton() {
-        translateService.getTranslatedText(text: textFrTextField.text!) { (success, translatedText) in
-            if success, let translatedText = translatedText {
-                self.updateTranslatedText(text: translatedText)
-            } else {
-                print("error")
-            }
-        }
-    }
-    
-    private func updateTranslatedText(text: String) {
-        textEnLabel.text = text
-    }
-    
-    
+    // MARK : - Actions
     @IBAction func dismissKeyBoard(_ sender: UITapGestureRecognizer) {
         textFrTextField.resignFirstResponder()
     }
     
+    @IBAction func getTextEnButton() {
+        updateTranslatedText()
+    }
+    
+    // MARK : - Private functions
+    private func presentView() {
+        textEnLabel.layer.cornerRadius =  6.0
+        textEnLabel.layer.backgroundColor = UIColor.white.cgColor
+    }
+    
+    private func updateTranslatedText() {
+        translateService.getTranslatedText(text: textFrTextField.text!) { (success, translatedText) in
+            if success, let translatedText = translatedText {
+                self.textEnLabel.text = translatedText
+            } else {
+                print("Oups, there's no result")
+            }
+        }
+    }
 }
 
 // MARK: - Extension TextField
@@ -48,5 +56,4 @@ extension TranslateViewController: UITextFieldDelegate {
         textFrTextField.resignFirstResponder()
         return true
     }
-    
 }

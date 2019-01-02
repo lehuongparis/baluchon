@@ -10,27 +10,37 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
+    // MARK : - Outlets
     @IBOutlet weak var tempNYLabel: UILabel!
     @IBOutlet weak var condNYLabel: UILabel!
-    
     @IBOutlet weak var tempParisLabel: UILabel!
     @IBOutlet weak var condParisLabel: UILabel!
-    
     @IBOutlet weak var condCityLabel: UILabel!
     @IBOutlet weak var tempCityLabel: UILabel!
-    
     @IBOutlet weak var cityTextField: UITextField!
     
+    // MARK : - var
+    private let weatherService = WeatherService()
+    
+    // MARK : - viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.updateTempNY()
+        self.updateTempParis()
+    }
+    
+    // MARK : - Actions
     @IBAction func dismissKeyBoard(_ sender: UITapGestureRecognizer) {
         self.cityTextField.resignFirstResponder()
     }
     
-    private var weatherService = WeatherService()
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    @IBAction func getTemTappedButton() {
+        updateTempCity()
+    }
+
+    // MARK : - Private functions
+    private func updateTempNY() {
         weatherService.getConditionCity(city: "newyork") { (tempNYCondition) in
             guard let tempNYCondition = tempNYCondition else {
                 return
@@ -38,7 +48,9 @@ class WeatherViewController: UIViewController {
             self.tempNYLabel.text = tempNYCondition.temp
             self.condNYLabel.text = tempNYCondition.text
         }
-
+    }
+    
+    private func updateTempParis() {
         weatherService.getConditionCity(city: "paris") { (tempParisCondition) in
             guard let tempParisCondition = tempParisCondition else {
                 return
@@ -48,20 +60,21 @@ class WeatherViewController: UIViewController {
         }
     }
     
-    @IBAction func getTemTappedButton() {
+    private func updateTempCity() {
         guard let city = cityTextField.text else {
             return
         }
         weatherService.getConditionCity(city: city) { (tempCityCondition) in
-        guard let tempCityCondition = tempCityCondition else {
-            return
-        }
-        self.tempCityLabel.text = tempCityCondition.temp
-        self.condCityLabel.text = tempCityCondition.text
+            guard let tempCityCondition = tempCityCondition else {
+                return
+            }
+            self.tempCityLabel.text = tempCityCondition.temp
+            self.condCityLabel.text = tempCityCondition.text
         }
     }
 }
 
+// MARK : - UITextField
 extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         cityTextField.resignFirstResponder()

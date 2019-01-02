@@ -9,7 +9,6 @@
 import Foundation
 
 // MARK : - Create URLSessionFake
-
 class URLSessionFake: URLSession {
     
     var data: Data?
@@ -42,7 +41,6 @@ class URLSessionFake: URLSession {
 }
 
 // MARK : - Create URLSessionDataTaskFake
-
 class URLSessionDataTaskFake: URLSessionDataTask {
     var completionHandler: ((Data?, URLResponse?, Error?)-> Void)?
     var data: Data?

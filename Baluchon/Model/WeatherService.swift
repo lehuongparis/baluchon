@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+// MARK : - Struct Json
 struct Weather: Decodable {
     let query: Query
 }
@@ -35,7 +35,8 @@ struct Conditions: Decodable {
 }
 
 class WeatherService {
-
+    
+    // MARK : - Vars
     private var task: URLSessionDataTask?
     private var weatherSession: URLSession
     
@@ -43,18 +44,11 @@ class WeatherService {
         self.weatherSession = weatherSession
         }
     
+    // MARK : - Functions
     func getConditionCity(city: String, callback : @escaping (Conditions?) -> Void) {
-
-        let citySelected = "'\(city)'"
-
-        let textCityUrl = "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\(citySelected)) and u='c'"
+        let request = createWeatherRequest(city: city)
         
-        guard let encodedTextCityUrl = textCityUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-
-        let conditionCity = URL(string: "https://query.yahooapis.com/v1/public/yql?q=\(encodedTextCityUrl)&format=json")!
-
-//        task?.cancel()
-        task = weatherSession.dataTask(with: conditionCity) { (data, response, error) in
+        task = weatherSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(nil)
@@ -78,6 +72,20 @@ class WeatherService {
             }
         }
     task?.resume()
+    }
+    
+    private func createWeatherRequest(city: String) -> URLRequest {
+        let citySelected = "'\(city)'"
+        
+        let textCityUrl = "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\(citySelected)) and u='c'"
+        
+        let encodedTextCityUrl =
+            textCityUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+    
+        let conditionCity = URL(string: "https://query.yahooapis.com/v1/public/yql?q=\(encodedTextCityUrl!)&format=json")!
+        
+        let request = URLRequest(url: conditionCity)
+        return request
     }
     
 }

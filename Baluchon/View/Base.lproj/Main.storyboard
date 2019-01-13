@@ -48,7 +48,7 @@
                                     <constraint firstAttribute="width" secondItem="0XT-OL-ckg" secondAttribute="height" multiplier="349:104" id="8do-As-L6H"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -356,7 +356,7 @@
                                 <rect key="frame" x="10" y="311" width="355" height="29"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oja-Ph-9Ui">
-                                        <rect key="frame" x="0.0" y="0.0" width="201.5" height="29"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <state key="normal" title="Get your amount">
                                             <color key="titleColor" red="0.58188301320000002" green="0.21569153669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -365,16 +365,16 @@
                                             <action selector="tappedGetAmount" destination="bd5-dm-U1v" eventType="touchUpInside" id="tz9-30-nT8"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollar" translatesAutoresizingMaskIntoConstraints="NO" id="ej3-E4-sFr">
-                                        <rect key="frame" x="211.5" y="0.0" width="25" height="29"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="ej3-E4-sFr">
+                                        <rect key="frame" x="177.5" y="0.0" width="25" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ej3-E4-sFr" secondAttribute="height" multiplier="25:29" id="Xkx-wl-P3b"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount in USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82f-Ri-qBt">
-                                        <rect key="frame" x="246.5" y="0.0" width="108.5" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your amount converted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82f-Ri-qBt">
+                                        <rect key="frame" x="212.5" y="0.0" width="142.5" height="29"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -444,7 +444,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dollar" width="25" height="25"/>
+        <image name="coin" width="25" height="25"/>
         <image name="euro" width="25" height="25"/>
         <image name="exchangerate" width="13" height="25"/>
         <image name="language" width="25" height="25"/>

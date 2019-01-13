@@ -19,12 +19,8 @@ struct Rates: Decodable {
 
 class ExchangeRateService {
 
-    // MARK : - Url
-    private static let currencyUrl = URL(string: "http://data.fixer.io/api/symbols?access_key=a232dffeb7aac4d2143830620eb8b4c7")!
-    private static let rateUrl = URL(string: "http://data.fixer.io/api/latest?access_key=a232dffeb7aac4d2143830620eb8b4c7")!
-    
+    // MARK : - Vars
     private var task: URLSessionDataTask?
-    
     private var currencySession: URLSession
     private var rateSession: URLSession
     init(currencySession: URLSession = URLSession(configuration: .default), rateSession: URLSession = URLSession(configuration: .default)) {
@@ -36,7 +32,8 @@ class ExchangeRateService {
     func getCurrency(callback : @escaping (Bool, [String]?)-> Void) {
 
         task?.cancel()
-        task = currencySession.dataTask(with: ExchangeRateService.currencyUrl) { (data, response, error) in
+        guard let currencyUrl = URL(string: "http://data.fixer.io/api/symbols?access_key=a232dffeb7aac4d2143830620eb8b4c7") else { return }
+        task = currencySession.dataTask(with: currencyUrl) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -62,7 +59,8 @@ class ExchangeRateService {
     func getRate(symbol: String, callback: @escaping (Bool, Double?) -> Void) {
 
         task?.cancel()
-        task = rateSession.dataTask(with: ExchangeRateService.rateUrl) { (data, response, error) in
+        guard let rateUrl = URL(string: "http://data.fixer.io/api/latest?access_key=a232dffeb7aac4d2143830620eb8b4c7") else { return }
+        task = rateSession.dataTask(with: rateUrl) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)

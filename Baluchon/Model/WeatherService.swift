@@ -8,30 +8,25 @@
 
 import Foundation
 
-// MARK : - Struct Json
+struct Condition: Decodable {
+    let weatherCity: Weather
+    let mainCity: Main
+}
+
 struct Weather: Decodable {
-    let query: Query
+    let weather: [Description]
 }
 
-struct Query: Decodable {
-    let results: Result
+struct Description: Decodable {
+    let description: String
 }
 
-struct Result: Decodable {
-    let channel: Channel
+struct Main: Decodable {
+    let main: Temp
 }
 
-struct Channel: Decodable {
-    let item: Items
-}
-
-struct Items: Decodable {
-    let condition: Conditions
-}
-
-struct Conditions: Decodable {
-    let temp: String
-    let text: String
+struct Temp: Decodable {
+    let temp: Double
 }
 
 class WeatherService {
@@ -45,50 +40,45 @@ class WeatherService {
         }
     
     // MARK : - Functions
-    func getConditionCity(city: String, callback : @escaping (Conditions?) -> Void) {
-        let request = createWeatherRequest(city: city)
-        
+    func getConditionCity(city: String, callback : @escaping (Condition?) -> Void) {
+        guard let request = createWeatherRequest(city: city) else { return }
+
         task = weatherSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(nil)
+                    print("a")
                     return
                 }
 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     callback(nil)
+                    print("b")
                     return
                 }
 
                 do {
-                    let queryCityJson = try JSONDecoder().decode(Weather.self, from: data)
-                    let tempCityCondition = queryCityJson.query.results.channel.item.condition
-                    callback(tempCityCondition)
+                    let queryCityJson = try JSONDecoder().decode(Condition.self, from: data)
+                    print(queryCityJson)
+                    callback(queryCityJson)
 
                 } catch {
                     callback(nil)
-                    print("Sorry, We don't have the weather of your city")
                 }
             }
         }
     task?.resume()
     }
-    
-    private func createWeatherRequest(city: String) -> URLRequest {
+
+    private func createWeatherRequest(city: String) -> URLRequest? {
         let citySelected = "'\(city)'"
-        
-        let textCityUrl = "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\(citySelected)) and u='c'"
-        
-        let encodedTextCityUrl =
-            textCityUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-    
-        let conditionCity = URL(string: "https://query.yahooapis.com/v1/public/yql?q=\(encodedTextCityUrl!)&format=json")!
-        
+
+        guard let conditionCity = URL(string: "api.openweathermap.org/data/2.5/weather?q=\(citySelected)&APPID=85137168b0d35695bae170138afe609d&units=metric") else { return nil }
+
         let request = URLRequest(url: conditionCity)
         return request
     }
-    
+
+
 }
-
-
 

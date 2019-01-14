@@ -101,10 +101,10 @@ class WeatherServiceTestCase: XCTestCase {
             
             // Then
             XCTAssertNotNil(conditionCity)
-            let tempParis = "10"
-            let condParis = "Cloudy"
-            XCTAssertEqual(tempParis, conditionCity?.temp)
-            XCTAssertEqual(condParis, conditionCity?.text)
+            let tempParis = 8.37
+            let condParis = "Clouds"
+            XCTAssertEqual(tempParis, conditionCity?.main.temp)
+            XCTAssertEqual(condParis, conditionCity?.weather[0].main)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)

@@ -33,8 +33,8 @@ class TranslateService {
     
     // MARK : - Functions
     func getTranslatedText(text: String, callback: @escaping (Bool, String?) -> Void) {
-        guard let request = createTranslateResquet(text: text) else { return }
-        
+        guard let request = createTranslateUrl(text: text) else { return }
+
         task?.cancel()
         task = translateSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
@@ -62,14 +62,10 @@ class TranslateService {
         task?.resume()
     }
     
-    private func createTranslateResquet(text: String) -> URLRequest? {
-        let encodedText = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+    private func createTranslateUrl(text: String) -> URL? {
+        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return nil }
         
-        guard let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyD_wDwmFHOY-6MQ09xn2ESjiUTSTjX7g7Y&q=\(encodedText ?? "")&source=fr&target=en&format=text") else { return nil }
-        
-        var request = URLRequest(url: translateUrl)
-        request.httpMethod = "POST"
-        request.httpBody = encodedText!.data(using: String.Encoding.utf8)
-        return request
+        guard let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyD_wDwmFHOY-6MQ09xn2ESjiUTSTjX7g7Y&q=\(encodedText)&source=fr&target=en&format=text") else { return nil }
+        return translateUrl
     }
 }

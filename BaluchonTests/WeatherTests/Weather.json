@@ -1,19 +1,42 @@
 {
-    "query": {
-        "count": 1,
-        "created": "2018-12-19T14:36:49Z",
-        "lang": "en-US",
-        "results": {
-            "channel": {
-                "item": {
-                    "condition": {
-                        "code": "26",
-                        "date": "Wed, 19 Dec 2018 03:00 PM CET",
-                        "temp": "10",
-                        "text": "Cloudy"
-                    }
-                }
-            }
+    "coord": {
+        "lon": 2.35,
+        "lat": 48.86
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
         }
-    }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 8.37,
+        "pressure": 1020,
+        "humidity": 66,
+        "temp_min": 8,
+        "temp_max": 9
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 3.6,
+        "deg": 300
+    },
+    "clouds": {
+        "all": 90
+    },
+    "dt": 1547461800,
+    "sys": {
+        "type": 1,
+        "id": 6540,
+        "message": 0.0039,
+        "country": "FR",
+        "sunrise": 1547451562,
+        "sunset": 1547482826
+    },
+    "id": 2988507,
+    "name": "Paris",
+    "cod": 200
 }

@@ -41,13 +41,13 @@ class WeatherViewController: UIViewController {
 
     // MARK : - Private functions
     private func updateTempNY() {
-        weatherService.getConditionCity(city: "newyork") { (tempNYCondition) in
+        weatherService.getConditionCity(city: "new york") { (tempNYCondition) in
             guard let tempNYCondition = tempNYCondition else {
                 return
             }
             print(tempNYCondition)
-            self.tempNYLabel.text = String(tempNYCondition.mainCity.main.temp)
-            self.condNYLabel.text = tempNYCondition.weatherCity.weather.description
+            self.tempNYLabel.text = String(tempNYCondition.main.temp)
+            self.condNYLabel.text = tempNYCondition.weather[0].main
         }
     }
     
@@ -56,8 +56,8 @@ class WeatherViewController: UIViewController {
             guard let tempParisCondition = tempParisCondition else {
                 return
             }
-            self.tempParisLabel.text = String(tempParisCondition.mainCity.main.temp)
-            self.condParisLabel.text = tempParisCondition.weatherCity.weather.description
+            self.tempParisLabel.text = String(tempParisCondition.main.temp)
+            self.condParisLabel.text = tempParisCondition.weather[0].main
         }
     }
     
@@ -69,12 +69,11 @@ class WeatherViewController: UIViewController {
             guard let tempCityCondition = tempCityCondition else {
                 return
             }
-            self.tempCityLabel.text = String(tempCityCondition.mainCity.main.temp)
-            self.condCityLabel.text = tempCityCondition.weatherCity.weather.description
+            self.tempCityLabel.text = String(tempCityCondition.main.temp)
+            self.condCityLabel.text = tempCityCondition.weather[0].main
         }
     }
 }
-
 
 // MARK : - UITextField
 extension WeatherViewController: UITextFieldDelegate {
